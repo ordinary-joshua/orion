@@ -1,0 +1,28 @@
+---
+interface Props {
+	name: string;
+	title: string;
+    headshot: string;
+}
+
+const { name, title, bio, headshot } = Astro.props;
+---
+<div class="team-member">
+    <div class="inner">
+        <div class="headshot">
+            <img src={ headshot } alt="">
+        </div>
+        <h3>{ name }</h3>
+        <p>{ title }</p>
+        <div class="bio">
+            <slot />
+        </div>
+    </div>
+</div>
+
+<style>
+    .team-member .inner
+    {
+        max-width: 40ch;
+    }
+</style>

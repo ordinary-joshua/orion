@@ -1,0 +1,144 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Header from '../components/Header.astro';
+import ImageFeature from '../components/ImageFeature.astro';
+import Hero from '../components/Hero.astro';
+import OurProjects from '../components/OurProjects.astro';
+import OurFounders from '../components/OurFounders.astro';
+---
+
+<Layout title="Welcome to Astro.">
+	<main>
+		<Header />
+		<Hero />
+		<div class="quote">
+			<div class="quote-pattern-1">
+				<div class="" style="background-color:#b7984b; height:100%; aspect-ratio: 1/1; border-top-right-radius: 9999px;"></div>
+				<div class="hash"></div>
+			</div>
+			<div class="quote-pattern-2"></div>
+			<div class="copy">
+				<blockquote>
+					<p>...they have no magic to stir men's blood and probably themselves will not be realised. Make big plans. Aim high in hope and work, remembering that a noble logical diagram, once recorded will never die, but long after we are gone, will be a living thing, asserting itself with ever growing insistency. Remember that our sons and grandsons are going to do things that will stagger us. Let your watchword be order and your beacon beauty.</p>
+					<cite>Author Name, Title of the Work</cite>
+				</blockquote>
+			</div>
+			<div class="quote-pattern-5"></div>
+			<div class="quote-pattern-6">
+			</div>
+			<div class="quote-pattern-7">
+				<div class="" style="border:1px solid #2e3038; height:100%; aspect-ratio: 1/1; border-bottom-left-radius: 9999px;"></div>
+				<div class="hash"></div>
+			</div>
+
+		</div>
+		<ImageFeature image="/img/cgi-2.jpg" />
+		<div class="notice">
+			<h2>We are a strategic property development company that specialises in reimagining neglected places and lifting forgotten communities.</h2>
+			<p>We have over 30 years’ experience in the property market, with a strong record of working with partners to identify land and buildings in overlooked urban areas that need regeneration by delivering large-scale, mixed use developments that become stylish and inspiring new neighbourhoods.</p>
+
+			<p>Over the years we have managed numerous regeneration projects delivering new homes together with commercial and leisure space providing employment and business opportunities. Our company has a commitment to integrity, openness with and a determination to deliver what we say, when we say for our partners and shareholders.</p>
+		</div>
+		<OurProjects />
+		<OurFounders />
+	</main>
+	<footer>
+		<div class="footer-columns">
+			<div class="footer-column">
+				TEL: +44(0)203 861 9455
+
+				Enquire: contact us
+				
+				Address: Orion Land and Leisure LTD
+				suite 6.08 16 berkeley street, london W1J 8DZ
+			</div>
+			<div class="footer-column">2</div>
+			<div class="footer-column">3</div>
+			<div class="footer-column">4</div>
+		</div>
+		<div class="logo">Orion Land</div>
+	</footer>
+</Layout>
+
+<style>
+	h1 
+	{ 
+		margin:0; 
+	}
+	.quote
+	{
+		padding:8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 75vh;
+		min-height: 650px;
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		grid-auto-rows: 1fr;
+		
+		gap: 8px;
+	}
+
+	.quote-pattern-1 { display: flex; grid-area: 1 / 1 / 2 / 5; flex-direction: row; gap:8px;}
+	.quote-pattern-2 { display: flex; grid-area: 1 / 5 / 1 / 7; flex-direction: row; gap:8px; }
+	.quote-pattern-4 { display: flex; grid-area: 2 / 5 / 2 / 7; flex-direction: row; gap:8px; }
+	.quote-pattern-5 { display: flex; grid-area: 4 / 1 / 3 / 1; flex-direction: row; gap:8px; }
+	.quote-pattern-6 { display: flex; grid-area: 4 / 2 / 3 / 4; flex-direction: row; gap:8px; }
+	.quote-pattern-7 { display: flex; grid-area: 4 / 4 / 3 / 7; flex-direction: row; gap:8px; }
+
+	.quote-pattern-1,
+	.quote-pattern-2,
+	.quote-pattern-3,
+	.quote-pattern-4,
+	.quote-pattern-5,
+	.quote-pattern-6,
+	.quote-pattern-7
+	{
+		
+		height: 100%;
+	}
+	.circle
+	{
+		border:1px solid red;
+		max-height:100%;
+	}
+	.hash
+	{
+		background-image: url("/img/hatch.png");
+		flex:1;
+		border:1px solid #2e3038;
+	}
+	.copy
+	{
+		display:flex;
+		align-items: center;
+		justify-content: center;
+		padding:4rem 5rem;
+		grid-column: 1/7;
+		text-align: center;
+	}
+	blockquote 
+	{ 
+		max-width: 50ch;
+		font-size: 2rem;
+		line-height: 3rem;
+		margin:0; 
+	}
+
+	.notice
+	{
+		border-top:1px solid #2e3038;
+		background-color: #000;
+		color:#FFF;
+		font-size: 5rem;
+		padding: 4rem 5rem;
+	}
+	.notice p 
+	{
+		font-size: 2rem;
+		max-width: 70ch;
+	}
+
+</style>

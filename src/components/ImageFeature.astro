@@ -1,0 +1,78 @@
+---
+interface Props {
+    image: string;
+}
+
+const { image } = Astro.props;
+
+const styleValue = `background-image:url('${image}');`;
+
+---
+<div class="image-feature" id="paralax" style={styleValue}>
+    <div class="sticky-wrapper">
+        <div class="sticky">
+            <h2>Reimagining and lifting communities.<br/> Creating inspiring new neighbourhoods with lasting legacy.</h2>
+            <p>In partnership with leading developers, financial institutions, and local authorities we are trusted to deliver large-scale, complex regeneration projects – working with local communities to imagine new neighbourhoods and leave a legacy for future generations to enjoy.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+.image-feature
+{
+    position: relative;
+    background-color: #000;
+    height: 100vh;
+    width: 100%;
+    overflow: clip;
+    background-position: 50% 0%;
+}
+.image-feature:after
+{
+    content:"";
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    z-index: 90;
+    background-color: rgba(0,0,0,0.4);
+}
+.image-feature img
+{
+    width:100%;
+    max-height: 100vh;
+    object-fit: cover;
+}
+.sticky-wrapper
+{
+    position: relative;
+    z-index: 99;
+    padding:5rem;
+    max-width: 40ch;
+}
+</style>
+
+<script>
+import Sticky from "sticky-js";
+import { gsap } from "gsap";
+    
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.to("#paralax", {
+    backgroundPosition: "50% 100%",
+    ease: "none",
+    scrollTrigger: {
+    trigger: "#paralax",
+    start: "top bottom",
+    end: "bottom top",
+    scrub: true,
+    pin: ".pin",
+    }
+});
+
+
+</script>

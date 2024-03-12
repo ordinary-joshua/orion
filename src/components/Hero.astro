@@ -1,0 +1,179 @@
+<div class="hero-grid" id="hero">
+    <div class="inner">
+        <h1 data-splitting>Make no little plans</h1>
+        <div class="scroll-down-prompt">
+            <img src="data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg id='b' data-name='Layer 2' xmlns='http://www.w3.org/2000/svg' width='99.556' height='99.556' viewBox='0 0 99.556 99.556'%3E%3Cg id='c' data-name='Layer 1'%3E%3Cg%3E%3Crect width='99.556' height='99.556' fill='none' stroke-width='0'/%3E%3Cpolygon points='71.698 61.446 51.778 81.366 51.778 10.533 47.778 10.533 47.778 81.366 27.857 61.446 25.029 64.274 46.949 86.194 49.778 89.023 52.606 86.194 74.526 64.274 71.698 61.446' fill='%23FFF' stroke-width='0'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
+        </div>
+    </div>
+    <div class="snapshot" id="snapshot">
+        <div class="imageMask">
+            <img />
+        </div>
+    </div>
+</div>
+
+<style>
+	@keyframes arrowUp {
+		from { transform: translate3d(-50%, 100%, 0); }
+		to { transform: translate3d(-50%, 0, 0); }
+	}
+	.hero-grid
+	{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding:4rem 5rem;
+		box-sizing: border-box;
+		width:100%;
+		height: calc(100vh);
+
+        overflow:hidden;
+	}
+    .hero-grid h1
+    {
+        user-select: none;
+    }
+	.hero-grid .inner
+	{
+		display: flex;
+		flex-direction: column;
+		gap:20px;
+		max-width: 150ch;
+	}
+	.hero-grid .scroll-down-prompt
+	{
+		animation-name: arrowUp;
+  		animation-duration: 1s;
+		animation-fill-mode: forwards;
+		position: absolute;
+		left:50%;
+		bottom:0;
+		transform: translate3d(-50%, 100%, 0);
+		height:150px;
+		width: 100px;
+	}
+    .hero-grid .snapshot
+    {
+        opacity:0;
+    }
+    .hero-grid.hover .snapshot
+    {
+        opacity:1;
+    }
+    .snapshot
+    {
+        transition: opacity 0.5s ease-in-out;
+        will-change: transform opacity;
+        position: absolute;
+        top:0;
+        left:0;
+        width:0;
+        height: 0;
+        background-color: #2e3038;
+        z-index:-1;
+        overflow: visible;
+        opacity: 0.7;
+    }
+    .snapshot .imageMask
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate3d(-50%, -50%, 0);
+        will-change: height, width;
+        transition: width .3s ease-in, height .3s ease-in-out;
+        height: 0;
+        width: 0;
+        overflow: hidden;
+    }
+    .snapshot .imageMask img
+    {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+
+<script>
+
+const snapshot = document.getElementById("snapshot");
+const snapshotImg = snapshot.querySelectorAll('img')[0];
+const imageMask = snapshot.querySelectorAll('.imageMask')[0];
+console.log(imageMask);
+
+const hero = document.getElementById("hero");
+
+hero.addEventListener("mouseover", function(event){
+    this.classList.add("hover");
+})
+
+hero.addEventListener("mouseout", function(event){
+    this.classList.remove("hover");
+})
+
+console.log("hello")
+
+document.addEventListener("mousemove", myFunction);
+document.addEventListener("scroll", myFunction);
+
+function myFunction(event)
+{
+
+    let rect = snapshot.getBoundingClientRect();
+    snapshot.style.transform = "translate(" + event.pageX + "px, " + event.pageY + "px)";
+
+    if(event.pageX < (window.screen.width * 0.25))
+    {
+        let image = imagesArray[0];
+        snapshotImg.src = image.src;
+        snapshotImg.width = image.w;
+        snapshotImg.height = image.h;
+        // 
+
+        imageMask.style.width = image.w + "px";
+        imageMask.style.height = image.h + "px";
+    } 
+    else if(event.pageX < (window.screen.width * 0.5))
+    {
+        let image = imagesArray[1];
+        snapshotImg.src = image.src;
+        snapshotImg.width = image.w;
+        snapshotImg.height = image.h;
+        // 
+
+        imageMask.style.width = image.w + "px";
+        imageMask.style.height = image.h + "px";
+    }
+    else if(event.pageX > (window.screen.width * 0.75))
+    {
+        let image = imagesArray[3];
+        snapshotImg.src = image.src;
+        snapshotImg.width = image.w;
+        snapshotImg.height = image.h;
+        // 
+
+        imageMask.style.width = image.w + "px";
+        imageMask.style.height = image.h + "px";
+    }
+    else if(event.pageX > (window.screen.width * 0.5))
+    {
+        let image = imagesArray[2];
+        snapshotImg.src = image.src;
+        snapshotImg.width = image.w;
+        snapshotImg.height = image.h;
+        // 
+
+        imageMask.style.width = image.w + "px";
+        imageMask.style.height = image.h + "px";
+    }
+}
+
+const imagesArray = [
+    { "src": "/img/image-1.jpg", "w": "450", "h": "300" },
+    { "src": "/img/image-2.jpg", "w": "360", "h": "482" },
+    { "src": "/img/image-3.jpg", "w": "280", "h": "260" },
+    { "src": "/img/image-1.jpg", "w": "450", "h": "300" },
+]
+</script>
