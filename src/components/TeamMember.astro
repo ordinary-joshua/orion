@@ -26,11 +26,12 @@ const { name, title, bio, headshot } = Astro.props;
         display: flex;
         flex-direction: row;
         gap:3rem;
-        padding:3rem 5rem;
+        padding:5rem;
+
     }
     .team-member:not(:last-child)
     {
-        border-bottom:1px solid #2e3038;
+        border-bottom:1px solid var(--border-color);
     }
     .team-member .inner
     {
@@ -47,5 +48,9 @@ const { name, title, bio, headshot } = Astro.props;
         width:100%;
         background-color: white;
         object-fit: cover;
+    }
+    h3
+    {
+        margin-top:0;
     }
 </style>

@@ -1,15 +1,15 @@
 ---
 import TeamMember from "./TeamMember.astro"
 ---
-<div class="our-founders">
+<div class="our-founders" id="founders">
     <div class="module-content">
         <h2>Our Founders</h2>
     </div>
     <div class="team">
-    <TeamMember name="Richard Olsen" title="Partner and Chief Executive" headshot="/img/headshot.jpg">
+    <TeamMember name="Richard Olsen" title="Partner and Chief Executive" headshot="/img/headshot-richard.png">
         With 30 years' experience in the property industry Richard combines detailed market knowledge with an entrepreneurial drive and an adventurous spirit giving him a well-proven ability to find the solution to even the most intractable property problems. His approach to business is simple: think of the future; be tenacious; pay meticulous attention to design and planning; deliver on time; always act with integrity.
     </TeamMember>
-    <TeamMember name="Jean Woolley" title="Partner" headshot="/img/headshot.jpg">
+    <TeamMember name="Jean Woolley" title="Partner" headshot="/img/headshot-jean.png">
         Jean has a wealth of experience at the highest political and corporate level, and has been Richard's business partner for over 20 years, since they worked on delivering the Royal Opera House and the Cardiff International Sports Village. Overseeing communication with all stakeholders and public engagement with local communities, Jean ensures their vision, creativity and ambition is balanced with pragmatism.
     </TeamMember>
     <TeamMember name="Ben King" title="Partner and Director" headshot="/img/headshot.jpg">
@@ -29,7 +29,7 @@ import TeamMember from "./TeamMember.astro"
     }
     .module-content
     {
-        border-right: 1px solid #2e3038;
+        border-right: 1px solid var(--border-color);
     }
     .module-content
     {
@@ -38,3 +38,34 @@ import TeamMember from "./TeamMember.astro"
         grid-row-gap:3rem;
     }
 </style>
+
+<script>
+
+    import { gsap } from "gsap";
+        
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    var elements = gsap.utils.toArray(".team-member");
+
+    elements.forEach(element => {
+        gsap.set(element, { opacity: 0, x: +50 }); // Initial state
+
+        gsap.to(element, {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            stagger: {
+                // wrap advanced options in an object
+                each: 0.1,
+                ease: "power2.inOut",
+            },
+            scrollTrigger: {
+                trigger: element,
+                start: "top 90%", // Adjust as needed
+                toggleActions: "play none none none",
+            },
+        });
+    });
+</script>

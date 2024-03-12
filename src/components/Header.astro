@@ -8,6 +8,7 @@
 
 <style>
 
+
 header
 {
     box-sizing: border-box;
@@ -19,7 +20,19 @@ header
     width:100%;
     z-index: 999;
     background: rgb(0,0,0);
-  background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 90%);  
+    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 90%);  
+
+    color: hwb(231 85% 9%);
+}
+
+html.light header
+{
+  background: linear-gradient(0deg, rgba(217,219,231,0) 0%, rgba(217,219,231,0.8) 90%);  
+}
+
+.logo
+{
+  color:var(--foreground-color);
 }
 
 /* The switch - the box around the slider */
@@ -63,7 +76,7 @@ header
 }
 
 input:checked + .slider {
-  background-color: #CCC;
+  background-color: #b4b7c6;
 }
 
 input:checked + .slider:before {
@@ -120,20 +133,20 @@ input:checked + .slider:before {
 
   checkbox.addEventListener('change', function() {
 
-    localStorage.setItem("theme", this.checked ? "dark" : "light");
-
-    if(this.checked)
+    if(this.checked && typeof localStorage !== 'undefined' && localStorage.getItem('theme') != "light")
     {
+      localStorage.setItem("theme", "light");
       document.documentElement.classList.add('light');
     }
     else
     {
+      localStorage.setItem("theme", "dark");
       document.documentElement.classList.remove('light');
     }
 
   });
 
-if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+  if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
     if(localStorage.getItem('theme') === "light")
     {
       document.documentElement.classList.add('light');
