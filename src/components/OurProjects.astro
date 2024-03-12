@@ -5,20 +5,23 @@
     <div class="module-content">
         <h2>Our Projects</h2>
     </div>
-    <div class="projects">
+    <div class="projects" id="projects">
         <div class="project">
+            <div class="project-featured-image"></div>
             <div class="project-info">
                 <h3>Cardiff International Sports Village</h3>
                 <p>In 2004 Orion was appointed as Cardiff Council's master development partner for the regeneration of the 80 acre Cardiff Bay site. We regenerated the contaminated site delivering new road infrastructure, an award-winning 50m Commonwealth standard swimming pool and associated leisure, a new temporary arena for the Cardiff Ice Devils, a white water rafting centre and significant retail space as well as securing planning permission for 1,000 bay-side homes. Orion's involvement with the delivery of the site ceased in 2007.</p>
             </div>
         </div>
         <div class="project">
+            <div class="project-featured-image"></div>
             <div class="project-info">
                 <h3>Shepherds Bush Market</h3>
                 <p>Working in co-operation with Hammersmith and Fulham Council and in partnership with Development Securities plc, Orion acquired Shepherds Bush Market from Transport for London.  Planning consent included 215 new homes, an extension to the Market for 60 new businesses and a new outreach centre for the charity Broadway St Mungo, including a new library and theatre.</p>
             </div>
         </div>
         <div class="project">
+            <div class="project-featured-image"></div>
             <div class="project-info">
                 <h3>Ascot Road, Watford</h3>
                 <p>In partnership with the William Pears Group, Orion acquired the 4.4 acre Sun Printers industrial site in West Watford and achieved planning for a new community, including 489 homes, as well as cafes, shops, and space dedicated for community use. Orion and Cortland Partners, a US based build to rent operator, formed a partnership to deliver and operate the project.</p>
@@ -37,8 +40,15 @@
     }
     .project
     {
+        display: flex;
         position: relative;
         border:1px solid var(--border-color);
+    }
+    .project-featured-image
+    {
+        background-color: rgba(255,255,255,0.2);
+        width:100%;
+
     }
     .project p
     {
@@ -60,3 +70,27 @@
         font-size: 2.5rem;
     }
 </style>
+
+<script>
+    import { gsap } from "gsap";
+        
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    var wrapper = document.getElementById("projects")
+
+    var elements = gsap.utils.toArray(".project");
+
+    ScrollTrigger.batch(".project", {
+        onEnter: elements => {
+            gsap.from(elements, {
+                autoAlpha: 0,
+                y: 60,
+                stagger: 0.15,
+                duration: 0.8,
+            });
+        },
+    });
+
+</script>
