@@ -8,10 +8,10 @@ interface Props {
 const { name, title, bio, headshot } = Astro.props;
 ---
 <div class="team-member">
+    <div class="headshot">
+        <img src={ headshot } alt="">
+    </div>
     <div class="inner">
-        <div class="headshot">
-            <img src={ headshot } alt="">
-        </div>
         <h3>{ name }</h3>
         <p>{ title }</p>
         <div class="bio">
@@ -21,8 +21,31 @@ const { name, title, bio, headshot } = Astro.props;
 </div>
 
 <style>
+    .team-member
+    {
+        display: flex;
+        flex-direction: row;
+        gap:3rem;
+        padding:3rem 5rem;
+    }
+    .team-member:not(:last-child)
+    {
+        border-bottom:1px solid #2e3038;
+    }
     .team-member .inner
     {
         max-width: 40ch;
+    }
+    .headshot
+    {
+        max-width:120px;
+        min-width: 80px;
+    }
+    .headshot img
+    {
+        aspect-ratio: 1/1;
+        width:100%;
+        background-color: white;
+        object-fit: cover;
     }
 </style>
