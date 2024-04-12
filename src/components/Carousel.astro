@@ -134,53 +134,61 @@ function updateMaxPosition() {
   const paddingRight = parseFloat(window.getComputedStyle(items).getPropertyValue('padding-right'));
   const totalItemsWidth = items.scrollWidth + paddingLeft; // Add left padding
   const containerWidth = carousel.offsetWidth;
-  return totalItemsWidth - containerWidth; // Subtract right padding
+  return totalItemsWidth - containerWidth + paddingRight; // Subtract right padding
 }
 
 function updateTransform(newPosition) {
+  items.style.transition = 'none'; // Remove transition
   items.style.transform = `translateX(${newPosition}px)`;
 }
 
-function easeOutQuint(t) {
-  return 1 + (--t) * t * t * t * t;
+function easeInOutQuint(t) {
+  if ((t /= 0.5) < 1) return 0.5 * Math.pow(t, 5);
+  return 0.5 * (Math.pow((t - 2), 5) + 2);
 }
 
 function handleMouseDown(e) {
   isDown = true;
   startX = e.pageX - items.offsetLeft;
   startTransform = getTransformXValue();
-  items.style.transition = 'none'; // Disable transition during drag
 }
 
 function handleMouseUp() {
   isDown = false;
-  const maxPosition = updateMaxPosition();
-  if (startTransform > 0 || startTransform < -maxPosition) {
-    const newPosition = startTransform > 0 ? 0 : -maxPosition;
-    updateTransform(newPosition);
-  }
 }
 
 function handleMouseMove(e) {
   if (!isDown) return;
   e.preventDefault();
   const x = e.pageX - items.offsetLeft;
+  const walk = (x - startX) * 3; // Adjust the scrolling speed
+  const maxPosition = updateMaxPosition();
+  let newPosition = startTransform + walk;
+  newPosition = Math.max(Math.min(newPosition, 0), -maxPosition); // Clamp position
+  updateTransform(newPosition);
+}
+
+function handleTouchStart(e) {
+  isDown = true;
+  const touch = e.touches[0];
+  startX = touch.pageX - items.offsetLeft;
+  startTransform = getTransformXValue();
+}
+
+function handleTouchEnd() {
+  isDown = false;
+}
+
+function handleTouchMove(e) {
+  if (!isDown) return;
+  e.preventDefault();
+  const touch = e.touches[0];
+  const x = touch.pageX - items.offsetLeft;
   const walk = (x - startX) * 1.2; // Adjust the scrolling speed
   const maxPosition = updateMaxPosition();
   let newPosition = startTransform + walk;
   newPosition = Math.max(Math.min(newPosition, 0), -maxPosition); // Clamp position
-  cancelAnimationFrame(animationFrameId);
-  animationFrameId = requestAnimationFrame(function animate() {
-    const distanceToMove = newPosition - getTransformXValue();
-    if (Math.abs(distanceToMove) <= 0.5) {
-      updateTransform(newPosition);
-    } else {
-      const easingValue = easeOutQuint(Math.min(1, Math.abs(distanceToMove) / 2000));
-      const delayedPosition = getTransformXValue() + distanceToMove * easingValue;
-      updateTransform(delayedPosition);
-      animationFrameId = requestAnimationFrame(animate);
-    }
-  });
+  updateTransform(newPosition);
 }
 
 function getTransformXValue() {
@@ -197,6 +205,10 @@ carousel.addEventListener('mousedown', handleMouseDown);
 carousel.addEventListener('mouseup', handleMouseUp);
 carousel.addEventListener('mouseleave', handleMouseUp);
 carousel.addEventListener('mousemove', handleMouseMove);
+
+carousel.addEventListener('touchstart', handleTouchStart);
+carousel.addEventListener('touchend', handleTouchEnd);
+carousel.addEventListener('touchmove', handleTouchMove);
 
 // Recalculate max position when the window is resized
 window.addEventListener('resize', () => {
