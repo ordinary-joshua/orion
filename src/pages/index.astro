@@ -6,11 +6,11 @@ import ImageFeature from '../components/ImageFeature.astro';
 import Hero from '../components/Hero.astro';
 import OurProjects from '../components/OurProjects.astro';
 import OurFounders from '../components/OurFounders.astro';
+import Partners from '../components/Partners.astro';
 ---
 
 <Layout title="Welcome to Astro.">
 	<main>
-		<Header />
 		<Hero />
 		<div class="quote">
 			<div class="quote-pattern-1">
@@ -42,26 +42,12 @@ import OurFounders from '../components/OurFounders.astro';
 		</div>
 		<OurProjects />
 		<OurFounders />
+		<Partners />
 	</main>
-	<footer>
-		<div class="footer-columns">
-			<div class="footer-column">
-				TEL: +44(0)203 861 9455<br/>
 
-				Enquire: contact us
-				
-				Address: Orion Land and Leisure LTD
-				suite 6.08 16 berkeley street, london W1J 8DZ
-			</div>
-			<div class="footer-column">2</div>
-			<div class="footer-column">3</div>
-			<div class="footer-column">4</div>
-		</div>
-		<div class="logo">Orion Land</div>
-	</footer>
 </Layout>
 
-<style>
+<style is:global>
 	html.light .hash
 	{
 		border-color: #c4c9dc;
@@ -143,5 +129,10 @@ import OurFounders from '../components/OurFounders.astro';
 		font-size: 2rem;
 		max-width: 70ch;
 	}
-
+	a.block-link
+	{
+		display: block;
+		text-decoration: none;
+		color: inherit;
+	}
 </style>

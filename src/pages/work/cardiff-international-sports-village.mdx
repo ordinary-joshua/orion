@@ -1,0 +1,19 @@
+---
+layout: ../../layouts/WorkLayout.astro
+title: 'Cardiff International Sports Village'
+excerpt: 'In partnership with the William Pears Group, Orion acquired the 4.4 acre Sun Printers industrial site in West Watford and achieved planning for a new community, including 489 homes, as well as cafes, shops, and space dedicated for community use. Orion and Cortland Partners, a US based build to rent operator, formed a partnership to deliver and operate the project.'
+heroImage: 
+    url: "/img/work/cardiff-01.jpg"
+thumbnail:
+    url: "/img/work/thumbnail-cardiff.jpg"
+---
+
+import Carousel from '../../components/Carousel.astro';
+import TextRow from '../../components/TextRow.astro';
+
+<TextRow>
+    <p class="big-text">Lorem ipsum dolor</p>
+    <p>In partnership with the William Pears Group, Orion acquired the 4.4 acre Sun Printers industrial site in West Watford and achieved planning for a new community, including 489 homes, as well as cafes, shops, and space dedicated for community use. Orion and Cortland Partners, a US based build to rent operator, formed a partnership to deliver and operate the project.</p>
+</TextRow>
+
+<Carousel message="Some text" items={["/img/work/cardiff-02.jpg", "/img/work/cardiff-03.jpg","/img/work/cardiff-04.jpg","/img/work/cardiff-05.jpg"]} />

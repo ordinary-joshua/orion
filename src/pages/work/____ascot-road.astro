@@ -1,0 +1,126 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import ProjectHero from '../../components/ProjectHero.astro';
+---
+
+<Layout title="Sheperds Bush Market.">
+	<main>
+        <Header />
+        <ProjectHero image="/img/work/ascot-road-01.jpg" />
+		<div class="projects-stats">
+			<div class="stat">
+				<div class="stat-stat">123</div>
+				<p>Lorem ipsum dolor</p>
+			</div>
+			<div class="stat">
+				<div class="stat-stat">123</div>
+				<p>Lorem ipsum dolor</p>
+			</div>
+			<div class="stat">
+				<div class="stat-stat">123</div>
+				<p>Lorem ipsum dolor</p>
+			</div>
+			<div class="stat">
+				<div class="stat-stat">123</div>
+				<p>Lorem ipsum dolor</p>
+			</div>
+		</div>
+		<div class="project-content">
+			<div class="project-meta">
+        		<h1 class="mega project-title" data-splitting>Ascot Road</h1>
+			</div>
+			<article>
+				<p class="lead-in">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae veritatis nihil eius exercitationem.</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga voluptas eum unde suscipit, iusto amet recusandae, delectus deserunt quidem atque iure officia veniam, rem sunt quibusdam magnam velit quam. Labore?</p>
+			</article>
+			<div class="carousel">
+				<div class="carousel-item">1</div>
+				<div class="carousel-item">2</div>
+				<div class="carousel-item">3</div>
+				<div class="carousel-item">4</div>
+				<div class="carousel-item">5</div>
+				<div class="carousel-item">6</div>
+				<div class="carousel-item">7</div>
+				<div class="carousel-item">8</div>
+			</div>
+		</div>
+
+		
+	</main>
+	<footer>
+		<div class="footer-columns">
+			<div class="footer-column">
+				TEL: +44(0)203 861 9455<br/>
+
+				Enquire: contact us
+				
+				Address: Orion Land and Leisure LTD
+				suite 6.08 16 berkeley street, london W1J 8DZ
+			</div>
+			<div class="footer-column">2</div>
+			<div class="footer-column">3</div>
+			<div class="footer-column">4</div>
+		</div>
+		<div class="logo">Orion Land</div>
+	</footer>
+</Layout>
+
+<style>
+.project-meta
+{
+	padding: 4rem 5rem;
+}
+.projects-stats
+{
+	border-bottom:1px solid var(--border-color);
+	display: flex;
+	flex-direction: row;
+	gap:40px;
+	padding: 4rem 5rem;
+}
+
+.projects-stats .stat
+{
+	display: flex;
+	flex-direction: column;
+	gap:10px;
+	flex:1;
+}
+
+.project-title
+{
+	margin-top:0;
+}
+
+.projects-stats .stat p
+{
+	margin: 0;
+}
+
+.projects-stats .stat-stat
+{
+	font-size:36px;
+}
+.project-content
+{
+	display:grid;
+	grid-template-columns: repeat(2,1fr);
+	grid-column-gap: 40px;
+}
+.project-content article
+{
+	padding: 4rem 5rem;
+}
+.project-content p.lead-in
+{
+	margin-top:0;
+	font-size: 48px;
+	line-height: 1.2em;
+}
+.project-content p
+{
+	font-size: 18px;
+	line-height: 2em;
+}
+</style>

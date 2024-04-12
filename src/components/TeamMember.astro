@@ -6,10 +6,12 @@ interface Props {
 }
 
 const { name, title, bio, headshot } = Astro.props;
+
+import { Image } from 'astro:assets';
 ---
 <div class="team-member">
     <div class="headshot">
-        <img src={ headshot } alt="">
+        <Image src={ headshot } alt=""  width="100" height="100" />
     </div>
     <div class="inner">
         <h3>{ name }</h3>

@@ -1,0 +1,214 @@
+---
+interface Props {
+	message: string;
+}
+
+const { message, items } = Astro.props;
+
+
+---
+
+<div class="carousel" id="carousel">
+
+	<div class="items" id="items">
+	{ items.map((item)=>( 
+
+		<div class="item">
+			<img src={item} />
+		</div>
+	)) }
+	</div>
+
+</div>
+
+<style is:global>
+
+.carousel
+{
+	width:100%;
+	overflow: hidden;
+	cursor: grab;
+	user-select: none;
+	padding:5rem 0;
+}
+.items
+{
+	box-sizing: border-box;
+	padding:0 5rem;
+    display: flex;
+    gap: 5rem; /* Adjust gap as needed */
+	white-space: nowrap;
+}
+.item
+{
+    flex: 0 0 30%;
+	  line-height: 0;
+    max-width: 100vw;
+    min-width: 350px;
+}
+.item:last-child
+{
+    margin-right: 50px;
+}
+
+.item img
+{
+	pointer-events: none;
+	width:100%;
+	height: auto;
+}
+
+
+
+</style>
+
+<script>
+
+// const carousel = document.getElementById('carousel');
+// const items = document.getElementById('items');
+// const lastItem = items.lastElementChild;
+// const carouselWidth = carousel.offsetWidth;
+
+// let isDown = false;
+// let startX;
+// let startTransform;
+
+// function updateMaxPosition() {
+//   const paddingLeft = parseFloat(window.getComputedStyle(items).getPropertyValue('padding-left'));
+//   const paddingRight = parseFloat(window.getComputedStyle(items).getPropertyValue('padding-right'));
+//   const totalItemsWidth = items.scrollWidth + paddingLeft; // Add left padding
+//   const containerWidth = carousel.offsetWidth;
+//   return totalItemsWidth - containerWidth; // Subtract right padding
+// }
+
+// carousel.addEventListener('mousedown', (e) => {
+//   isDown = true;
+//   startX = e.pageX - items.offsetLeft;
+//   startTransform = getTransformXValue();
+// });
+
+// carousel.addEventListener('mouseleave', () => {
+//   isDown = false;
+// });
+
+// carousel.addEventListener('mouseup', () => {
+//   isDown = false;
+// });
+
+// carousel.addEventListener('mousemove', (e) => {
+//   if (!isDown) return;
+//   e.preventDefault();
+//   const x = e.pageX - items.offsetLeft;
+//   const walk = (x - startX) * 3; // Adjust the scrolling speed
+//   const maxPosition = updateMaxPosition();
+//   const newPosition = Math.min(Math.max(startTransform + walk, -maxPosition), 0); // Adjusted maxPosition
+//   items.style.transform = `translateX(${newPosition}px)`;
+//   console.log(newPosition);
+// });
+
+// function getTransformXValue() {
+//   const transform = window.getComputedStyle(items).getPropertyValue('transform');
+//   const match = transform.match(/matrix\((.*)\)/);
+//   if (match && match[1]) {
+//     const values = match[1].split(',');
+//     return parseFloat(values[4]);
+//   }
+//   return 0;
+// }
+
+// // You may want to recalculate the maximum position when the window is resized
+// window.addEventListener('resize', () => {
+//   updateMaxPosition();
+// });
+
+const carousel = document.getElementById('carousel');
+const items = document.getElementById('items');
+const lastItem = items.lastElementChild;
+const carouselWidth = carousel.offsetWidth;
+
+let isDown = false;
+let startX;
+let startTransform;
+let animationFrameId;
+
+function updateMaxPosition() {
+  const paddingLeft = parseFloat(window.getComputedStyle(items).getPropertyValue('padding-left'));
+  const paddingRight = parseFloat(window.getComputedStyle(items).getPropertyValue('padding-right'));
+  const totalItemsWidth = items.scrollWidth + paddingLeft; // Add left padding
+  const containerWidth = carousel.offsetWidth;
+  return totalItemsWidth - containerWidth; // Subtract right padding
+}
+
+function updateTransform(newPosition) {
+  items.style.transform = `translateX(${newPosition}px)`;
+}
+
+function easeOutQuint(t) {
+  return 1 + (--t) * t * t * t * t;
+}
+
+function handleMouseDown(e) {
+  isDown = true;
+  startX = e.pageX - items.offsetLeft;
+  startTransform = getTransformXValue();
+  items.style.transition = 'none'; // Disable transition during drag
+}
+
+function handleMouseUp() {
+  isDown = false;
+  const maxPosition = updateMaxPosition();
+  if (startTransform > 0 || startTransform < -maxPosition) {
+    const newPosition = startTransform > 0 ? 0 : -maxPosition;
+    updateTransform(newPosition);
+  }
+}
+
+function handleMouseMove(e) {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - items.offsetLeft;
+  const walk = (x - startX) * 1.2; // Adjust the scrolling speed
+  const maxPosition = updateMaxPosition();
+  let newPosition = startTransform + walk;
+  newPosition = Math.max(Math.min(newPosition, 0), -maxPosition); // Clamp position
+  cancelAnimationFrame(animationFrameId);
+  animationFrameId = requestAnimationFrame(function animate() {
+    const distanceToMove = newPosition - getTransformXValue();
+    if (Math.abs(distanceToMove) <= 0.5) {
+      updateTransform(newPosition);
+    } else {
+      const easingValue = easeOutQuint(Math.min(1, Math.abs(distanceToMove) / 2000));
+      const delayedPosition = getTransformXValue() + distanceToMove * easingValue;
+      updateTransform(delayedPosition);
+      animationFrameId = requestAnimationFrame(animate);
+    }
+  });
+}
+
+function getTransformXValue() {
+  const transform = window.getComputedStyle(items).getPropertyValue('transform');
+  const match = transform.match(/matrix\((.*)\)/);
+  if (match && match[1]) {
+    const values = match[1].split(',');
+    return parseFloat(values[4]);
+  }
+  return 0;
+}
+
+carousel.addEventListener('mousedown', handleMouseDown);
+carousel.addEventListener('mouseup', handleMouseUp);
+carousel.addEventListener('mouseleave', handleMouseUp);
+carousel.addEventListener('mousemove', handleMouseMove);
+
+// Recalculate max position when the window is resized
+window.addEventListener('resize', () => {
+  updateMaxPosition();
+});
+
+
+
+
+
+
+
+</script>

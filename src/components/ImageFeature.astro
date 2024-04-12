@@ -8,7 +8,7 @@ const { image } = Astro.props;
 const styleValue = `background-image:url('${image}');`;
 
 ---
-<div class="image-feature" id="paralax" style={styleValue}>
+<div class="image-feature" id="paralaxx" style={styleValue}>
     <div class="sticky-wrapper">
         <div class="sticky">
             <h2>Reimagining and lifting communities.<br/> Creating inspiring new neighbourhoods with lasting legacy.</h2>
@@ -20,65 +20,43 @@ const styleValue = `background-image:url('${image}');`;
 <style>
 .image-feature
 {
-    position: relative;
+    /* position: relative;
     background-color: #000;
     color:#FFF;
     height: 100vh;
     width: 100%;
     overflow: clip;
-    background-position: 50% 0%;
-}
-.image-feature:after
-{
-    content:"";
-    position: absolute;
-    top:0;
-    right:0;
-    bottom:0;
-    left:0;
-    z-index: 90;
-    background-color: rgba(0,0,0,0.4);
-}
-.image-feature img
-{
+    background-position: 50% 0%; */
+    background: #000;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: clip;
+    background-position: center top;
     width:100%;
-    max-height: 100vh;
-    object-fit: cover;
-}
-.sticky-wrapper
-{
-    width:100%;
-    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 90%);  
-    position: relative;
-    z-index: 99;
-}
-.sticky
-{
-    padding:5rem;
-    max-width: 40ch;
+    height: 100vh;
+    min-height: 650px;
+    box-sizing: border-box;
 }
 </style>
 
 <script>
-import Sticky from "sticky-js";
-import { gsap } from "gsap";
+
+    import { gsap } from "gsap";
+        
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
     
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-
-gsap.registerPlugin(ScrollTrigger);
-
-gsap.to("#paralax", {
-    backgroundPosition: "50% 100%",
-    ease: "none",
-    scrollTrigger: {
-    trigger: "#paralax",
-    start: "top bottom",
-    end: "bottom top",
-    scrub: true,
-    pin: ".pin",
-    }
-});
-
+    
+    gsap.registerPlugin(ScrollTrigger);
+    
+    gsap.to("#paralaxx", {
+        backgroundPosition: "50% 100%",
+        ease: "none",
+        scrollTrigger: {
+            trigger: "#paralax",
+            start: "top bottom", // Start when bottom of the trigger enters the bottom of the viewport
+            end: "bottom center", // End when bottom of the trigger aligns with the top of the viewport
+            scrub: true
+        }
+    });
 
 </script>

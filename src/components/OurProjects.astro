@@ -1,32 +1,32 @@
 ---
-
+const allPosts = await Astro.glob('../pages/work/*.mdx');
 ---
+
+<!-- { allPosts.map((post) => <li><a href={post.url}>{post.frontmatter.title}</a></li>) } -->
+
+
+
 <div class="our-projects">
     <div class="module-content">
         <h2>Our Projects</h2>
     </div>
     <div class="projects" id="projects">
-        <div class="project">
-            <div class="project-featured-image"></div>
-            <div class="project-info">
-                <h3>Cardiff International Sports Village</h3>
-                <p>In 2004 Orion was appointed as Cardiff Council's master development partner for the regeneration of the 80 acre Cardiff Bay site. We regenerated the contaminated site delivering new road infrastructure, an award-winning 50m Commonwealth standard swimming pool and associated leisure, a new temporary arena for the Cardiff Ice Devils, a white water rafting centre and significant retail space as well as securing planning permission for 1,000 bay-side homes. Orion's involvement with the delivery of the site ceased in 2007.</p>
+
+        { allPosts.map((post) =>
+
+        <a class="block-link project-link" href={post.url}>
+            <div class="project">
+                <div class="project-featured-image">
+                    <img src={post.frontmatter.thumbnail.url} alt="" />
+                </div>
+                <div class="project-info">
+                    <h3>{ post.frontmatter.title }</h3>
+                </div>
             </div>
-        </div>
-        <div class="project">
-            <div class="project-featured-image"></div>
-            <div class="project-info">
-                <h3>Shepherds Bush Market</h3>
-                <p>Working in co-operation with Hammersmith and Fulham Council and in partnership with Development Securities plc, Orion acquired Shepherds Bush Market from Transport for London.  Planning consent included 215 new homes, an extension to the Market for 60 new businesses and a new outreach centre for the charity Broadway St Mungo, including a new library and theatre.</p>
-            </div>
-        </div>
-        <div class="project">
-            <div class="project-featured-image"></div>
-            <div class="project-info">
-                <h3>Ascot Road, Watford</h3>
-                <p>In partnership with the William Pears Group, Orion acquired the 4.4 acre Sun Printers industrial site in West Watford and achieved planning for a new community, including 489 homes, as well as cafes, shops, and space dedicated for community use. Orion and Cortland Partners, a US based build to rent operator, formed a partnership to deliver and operate the project.</p>
-            </div>
-        </div>
+        </a>
+
+        )}
+        
     </div>
 </div>
 
@@ -37,18 +37,39 @@
         grid-template-columns: repeat(3,1fr);
         min-height: 650px;
         height: 70vh;
+        gap:1px;
     }
     .project
     {
+        height: 100%;
         display: flex;
         position: relative;
-        border:1px solid var(--border-color);
+        overflow:hidden;
+        min-height: 350px;
+    }
+    .project:hover img
+    {
+        transform: scale(1.05);
     }
     .project-featured-image
     {
-        background-color: rgba(255,255,255,0.2);
+        position:absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;        
+        background-color: #000;
         width:100%;
-
+        height:100%;
+        
+    }
+    .project-featured-image img
+    {
+        transition: transform 0.2s ease-in-out;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        object-fit:cover;
     }
     .project p
     {
@@ -60,6 +81,7 @@
         position: absolute;
         bottom:0;
         padding:3rem 4rem;
+        color:#FFF;
     }
     .module-content
     {
@@ -69,6 +91,15 @@
     {
         font-size: 2.5rem;
     }
+    @media only screen and (max-width: 600px) {
+        .projects
+        {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+        }
+        
+    }
 </style>
 
 <script>
@@ -76,13 +107,15 @@
         
     import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+    import { Flickity } from "flickity";
+
     gsap.registerPlugin(ScrollTrigger);
 
     var wrapper = document.getElementById("projects")
 
-    var elements = gsap.utils.toArray(".project");
+    var elements = gsap.utils.toArray(".project-link");
 
-    ScrollTrigger.batch(".project", {
+    ScrollTrigger.batch(".project-link", {
         onEnter: elements => {
             gsap.from(elements, {
                 autoAlpha: 0,
@@ -91,6 +124,13 @@
                 duration: 0.8,
             });
         },
+    });
+
+    var elem = document.querySelector('.projects');
+    var flkty = new Flickity( elem, {
+    // options
+    cellAlign: 'left',
+    contain: true
     });
 
 </script>
