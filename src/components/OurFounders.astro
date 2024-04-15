@@ -29,13 +29,22 @@ import TeamMember from "./TeamMember.astro"
     }
     .module-content
     {
+        display: grid;
+        padding: 3rem var(--outside-padding);
+        grid-row-gap:3rem;
         border-right: 1px solid var(--border-color);
     }
-    .module-content
-    {
-        display: grid;
-        padding:3rem 5rem;
-        grid-row-gap:3rem;
+    @media only screen and (max-width: 1024px) {
+        .module-content
+        {
+            border-right: 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .our-founders
+        {
+            display: flex;
+            flex-direction: column;
+        }
     }
 </style>
 
