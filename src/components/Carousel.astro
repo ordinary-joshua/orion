@@ -8,51 +8,32 @@ const { message, items } = Astro.props;
 
 ---
 
-<div class="carousel" id="carousel">
+<div class="carousel-container">
+  <div class="carousel swiper-container" id="carousel">
 
-	<div class="items" id="items">
-	{ items.map((item)=>( 
+    <div class="items swiper-wrapper" id="items">
+    { items.map((item)=>( 
 
-		<div class="item">
-			<img src={item} />
-		</div>
-	)) }
-	</div>
+      <div class="item swiper-slide">
+        <img src={item} />
+      </div>
+    )) }
+    </div>
 
+  </div>
 </div>
 
-<style is:global>
+<style>
 
-.carousel
+.carousel-container
 {
-	width:100%;
-	overflow: hidden;
-	cursor: grab;
-	user-select: none;
-	padding:5rem 0;
-}
-.items
-{
-	box-sizing: border-box;
-	padding:0 5rem;
-    display: flex;
-    gap: 5rem; /* Adjust gap as needed */
-	white-space: nowrap;
-}
-.item
-{
-    flex: 0 0 30%;
-	  line-height: 0;
-    max-width: 100vw;
-    min-width: 350px;
-}
-.item:last-child
-{
-    margin-right: 50px;
+  border-top:1px solid var(--border-color);
+  border-bottom:1px solid var(--border-color);
+  padding:5rem 5rem;
 }
 
 .item img
-{
+{ 
 	pointer-events: none;
 	width:100%;
 	height: auto;
@@ -63,162 +44,23 @@ const { message, items } = Astro.props;
 </style>
 
 <script>
+  import Swiper from 'swiper';
+  import 'swiper/swiper-bundle.css';
 
-// const carousel = document.getElementById('carousel');
-// const items = document.getElementById('items');
-// const lastItem = items.lastElementChild;
-// const carouselWidth = carousel.offsetWidth;
-
-// let isDown = false;
-// let startX;
-// let startTransform;
-
-// function updateMaxPosition() {
-//   const paddingLeft = parseFloat(window.getComputedStyle(items).getPropertyValue('padding-left'));
-//   const paddingRight = parseFloat(window.getComputedStyle(items).getPropertyValue('padding-right'));
-//   const totalItemsWidth = items.scrollWidth + paddingLeft; // Add left padding
-//   const containerWidth = carousel.offsetWidth;
-//   return totalItemsWidth - containerWidth; // Subtract right padding
-// }
-
-// carousel.addEventListener('mousedown', (e) => {
-//   isDown = true;
-//   startX = e.pageX - items.offsetLeft;
-//   startTransform = getTransformXValue();
-// });
-
-// carousel.addEventListener('mouseleave', () => {
-//   isDown = false;
-// });
-
-// carousel.addEventListener('mouseup', () => {
-//   isDown = false;
-// });
-
-// carousel.addEventListener('mousemove', (e) => {
-//   if (!isDown) return;
-//   e.preventDefault();
-//   const x = e.pageX - items.offsetLeft;
-//   const walk = (x - startX) * 3; // Adjust the scrolling speed
-//   const maxPosition = updateMaxPosition();
-//   const newPosition = Math.min(Math.max(startTransform + walk, -maxPosition), 0); // Adjusted maxPosition
-//   items.style.transform = `translateX(${newPosition}px)`;
-//   console.log(newPosition);
-// });
-
-// function getTransformXValue() {
-//   const transform = window.getComputedStyle(items).getPropertyValue('transform');
-//   const match = transform.match(/matrix\((.*)\)/);
-//   if (match && match[1]) {
-//     const values = match[1].split(',');
-//     return parseFloat(values[4]);
-//   }
-//   return 0;
-// }
-
-// // You may want to recalculate the maximum position when the window is resized
-// window.addEventListener('resize', () => {
-//   updateMaxPosition();
-// });
-
-const carousel = document.getElementById('carousel');
-const items = document.getElementById('items');
-
-let isDown = false;
-let startX;
-let startTransform;
-let animationFrameId;
-
-function updateMaxPosition() {
-  const paddingLeft = parseFloat(window.getComputedStyle(items).getPropertyValue('padding-left'));
-  const paddingRight = parseFloat(window.getComputedStyle(items).getPropertyValue('padding-right'));
-  const totalItemsWidth = items.scrollWidth + paddingLeft; // Add left padding
-  const containerWidth = carousel.offsetWidth;
-  return totalItemsWidth - containerWidth + paddingRight; // Subtract right padding
-}
-
-function updateTransform(newPosition) {
-  items.style.transition = 'none'; // Remove transition
-  items.style.transform = `translateX(${newPosition}px)`;
-}
-
-function easeInOutQuint(t) {
-  if ((t /= 0.5) < 1) return 0.5 * Math.pow(t, 5);
-  return 0.5 * (Math.pow((t - 2), 5) + 2);
-}
-
-function handleMouseDown(e) {
-  isDown = true;
-  startX = e.pageX - items.offsetLeft;
-  startTransform = getTransformXValue();
-}
-
-function handleMouseUp() {
-  isDown = false;
-}
-
-function handleMouseMove(e) {
-  if (!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - items.offsetLeft;
-  const walk = (x - startX) * 3; // Adjust the scrolling speed
-  const maxPosition = updateMaxPosition();
-  let newPosition = startTransform + walk;
-  newPosition = Math.max(Math.min(newPosition, 0), -maxPosition); // Clamp position
-  updateTransform(newPosition);
-}
-
-function handleTouchStart(e) {
-  isDown = true;
-  const touch = e.touches[0];
-  startX = touch.pageX - items.offsetLeft;
-  startTransform = getTransformXValue();
-}
-
-function handleTouchEnd() {
-  isDown = false;
-}
-
-function handleTouchMove(e) {
-  if (!isDown) return;
-  e.preventDefault();
-  const touch = e.touches[0];
-  const x = touch.pageX - items.offsetLeft;
-  const walk = (x - startX) * 1.2; // Adjust the scrolling speed
-  const maxPosition = updateMaxPosition();
-  let newPosition = startTransform + walk;
-  newPosition = Math.max(Math.min(newPosition, 0), -maxPosition); // Clamp position
-  updateTransform(newPosition);
-}
-
-function getTransformXValue() {
-  const transform = window.getComputedStyle(items).getPropertyValue('transform');
-  const match = transform.match(/matrix\((.*)\)/);
-  if (match && match[1]) {
-    const values = match[1].split(',');
-    return parseFloat(values[4]);
-  }
-  return 0;
-}
-
-carousel.addEventListener('mousedown', handleMouseDown);
-carousel.addEventListener('mouseup', handleMouseUp);
-carousel.addEventListener('mouseleave', handleMouseUp);
-carousel.addEventListener('mousemove', handleMouseMove);
-
-carousel.addEventListener('touchstart', handleTouchStart);
-carousel.addEventListener('touchend', handleTouchEnd);
-carousel.addEventListener('touchmove', handleTouchMove);
-
-// Recalculate max position when the window is resized
-window.addEventListener('resize', () => {
-  updateMaxPosition();
-});
-
-
-
-
-
-
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper-container', {
+      // Your Swiper options here
+      loop: true,
+      pagination: false,
+      slidesPerView: 3,
+      spaceBetween: 40,
+      grabCursor: true,
+      freeMode: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  });
 
 </script>

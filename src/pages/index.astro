@@ -28,7 +28,7 @@ import Partners from '../components/Partners.astro';
 			<div class="quote-pattern-6">
 			</div>
 			<div class="quote-pattern-7">
-				<div class="" style="border:1px solid #2e3038; height:100%; aspect-ratio: 1/1; border-bottom-left-radius: 9999px;"></div>
+				<div class="radius" style="height:100%; aspect-ratio: 1/1; border-bottom-left-radius: 9999px;"></div>
 				<div class="hash"></div>
 			</div>
 
@@ -52,6 +52,10 @@ import Partners from '../components/Partners.astro';
 	{
 		border-color: #c4c9dc;
 		background-image: url("/img/hatch-light.png");
+	}
+	html.light .radius
+	{
+		border:1px solid #c4c9dc;
 	}
 	h1 
 	{ 
@@ -88,15 +92,14 @@ import Partners from '../components/Partners.astro';
 		
 		height: 100%;
 	}
-	.circle
-	{
-		border:1px solid red;
-		max-height:100%;
-	}
 	.hash
 	{
 		background-image: url("/img/hatch.png");
 		flex:1;
+		border:1px solid #2e3038;
+	}
+	.radius
+	{
 		border:1px solid #2e3038;
 	}
 	.copy

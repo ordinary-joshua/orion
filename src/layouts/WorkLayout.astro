@@ -18,7 +18,7 @@ const allPosts = await Astro.glob('../pages/work/*.mdx');
 		<ProjectHero image={frontmatter.heroImage.url} title={frontmatter.title} />
 	}
 
-	<div class="" style="padding-bottom: 500px;">
+	<div class="" style="padding-bottom: 200px;">
 		<slot />
 	</div>
 
@@ -26,7 +26,7 @@ const allPosts = await Astro.glob('../pages/work/*.mdx');
 
         { allPosts.map((post) =>
 
-			<a class="block-link project-link" href={post.url}>
+			<a class="block-link project-link" href={post.url} data-title={post.frontmatter.title}>
 				<div class="work-item">
 					<img src={post.frontmatter.thumbnail.url} alt="" />
 				</div>
@@ -38,6 +38,7 @@ const allPosts = await Astro.glob('../pages/work/*.mdx');
 </Layout>
 
 <style>
+
 	body.scroll-up .work-nav
 	{
 		transform: translate3d(-50%, 0 , 0);
@@ -46,10 +47,11 @@ const allPosts = await Astro.glob('../pages/work/*.mdx');
 	{
 		transform: translate3d(-50%, 150%, 0);
 	}
+
 	.work-nav
 	{
 		transition: transform 0.5s ease-in-out;
-		background-color: rgba(55,55,55,0.5);
+		background-color: rgba(155,155,155,0.3);
 		backdrop-filter: blur(10px);
 		border-radius: 12px;
 		position: fixed;
@@ -73,7 +75,7 @@ const allPosts = await Astro.glob('../pages/work/*.mdx');
 	{
 		width: 100%;
 		height: 100%;
-		object-fit: fill;
+		object-fit: cover;
 		opacity: 0.8;
 	}
 	.project-meta
@@ -135,6 +137,8 @@ const allPosts = await Astro.glob('../pages/work/*.mdx');
 	</style>
 
 <script>
+	import tippy from 'tippy.js';
+	
 	let lastScrollTop = 0;
 
 	function handleScroll() {
@@ -154,4 +158,9 @@ const allPosts = await Astro.glob('../pages/work/*.mdx');
 	}
 
 	window.addEventListener('scroll', handleScroll);
+
+
+	// Comments 
+
+	tippy('.tippy');
 </script>

@@ -49,6 +49,7 @@ const allPosts = await Astro.glob('../pages/work/*.mdx');
     }
     .project:hover img
     {
+        opacity: 0.6;
         transform: scale(1.05);
     }
     .project-featured-image
@@ -65,11 +66,12 @@ const allPosts = await Astro.glob('../pages/work/*.mdx');
     }
     .project-featured-image img
     {
-        transition: transform 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
         width: 100%;
         height: 100%;
         opacity: 0.5;
         object-fit:cover;
+        pointer-events: none;
     }
     .project p
     {
@@ -107,13 +109,7 @@ const allPosts = await Astro.glob('../pages/work/*.mdx');
         
     import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-    import { Flickity } from "flickity";
-
     gsap.registerPlugin(ScrollTrigger);
-
-    var wrapper = document.getElementById("projects")
-
-    var elements = gsap.utils.toArray(".project-link");
 
     ScrollTrigger.batch(".project-link", {
         onEnter: elements => {
@@ -125,12 +121,4 @@ const allPosts = await Astro.glob('../pages/work/*.mdx');
             });
         },
     });
-
-    var elem = document.querySelector('.projects');
-    var flkty = new Flickity( elem, {
-    // options
-    cellAlign: 'left',
-    contain: true
-    });
-
 </script>

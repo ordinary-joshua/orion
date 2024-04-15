@@ -27,6 +27,7 @@ const styleValue = `background-image:url('${image}');`;
     width: 100%;
     overflow: clip;
     background-position: 50% 0%; */
+    position: relative;
     background: #000;
     background-repeat: no-repeat;
     background-size: cover;
@@ -36,6 +37,25 @@ const styleValue = `background-image:url('${image}');`;
     height: 100vh;
     min-height: 650px;
     box-sizing: border-box;
+    color:#FFF;
+    padding:5rem;
+}
+.image-feature::before
+{
+    content:"";
+    background-color: rgba(0,0,0,0.25);
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+}
+.image-feature .sticky-wrapper
+{
+    position: relative;
+    z-index: 99;
+    width: 100%;
+    max-width: 675px;
 }
 </style>
 
