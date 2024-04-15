@@ -40,7 +40,6 @@ const { message, items } = Astro.props;
 }
 
 
-
 </style>
 
 <script>
@@ -52,7 +51,7 @@ const { message, items } = Astro.props;
       // Your Swiper options here
       loop: true,
       pagination: false,
-      slidesPerView: 3,
+      slidesPerView: 1,
       spaceBetween: 40,
       grabCursor: true,
       freeMode: true,
@@ -60,7 +59,23 @@ const { message, items } = Astro.props;
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+      },
     });
   });
+
+  
 
 </script>
