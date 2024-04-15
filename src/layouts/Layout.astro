@@ -56,9 +56,10 @@ const { title } = Astro.props;
 
 html
 {
-	--background-color: #101011;
+	--background-color: #18181a;
 	--foreground-color: #FFF;
 	--border-color: #2e3038;
+	--outside-padding: clamp(20px, 4vw, 4rem);
 	background-color: var(--background-color);
 	color:var(--foreground-color);
 	font-family: "EurostileNextExtendedRegular";
@@ -110,7 +111,7 @@ footer
 	width:100%;
 	background-color: #b7984b;
 	color:#FFF;
-	padding:3rem 5rem;
+	padding: var(--outside-padding);
 }
 footer .logo
 {

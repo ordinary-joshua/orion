@@ -232,11 +232,12 @@
     .partners
     {
         border-top:1px solid var(--border-color);
-        --gap: 1rem;
+        --gap: 20px;
         display: flex;
         overflow: hidden;
         user-select: none;
         gap: var(--gap);
+        height:180px;
     }
     .partners .partner-logo
     {
@@ -244,6 +245,8 @@
         align-items: center;
         justify-content: center;
         padding:10px;
+
+        max-width: 180px;
     }
     .partners .content
     {
@@ -253,6 +256,14 @@
         min-width: 100%;
         gap: var(--gap);
         animation: scroll 40s linear infinite;
+    }
+    .partner-logo path
+    {
+        fill:var(--foreground-color);
+    }
+    .html.light .partner-logo path
+    {
+        fill:var(--foreground-color);
     }
 </style>
 
