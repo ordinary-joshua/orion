@@ -7,7 +7,7 @@ import Layout from '../layouts/Layout.astro';
 	<main>
         <div class="contact-wrapper">
             <div class="form-wrapper">
-                <form name="contact" netlify>
+                <form name="contact" data-netlify-recaptcha="true" netlify-honeypot="bot-field" netlify>
                     <div class="form-section">
                         <div class="field">
                             <label for="first-name">First Name</label>
@@ -30,6 +30,12 @@ import Layout from '../layouts/Layout.astro';
                             <textarea name="message" id="message"></textarea>
                         </div>
                     </div>
+                    <div class="form-section hidden">
+                        <div class="field">
+                          Don't fill this out if you're human: <input name="bot-field" />
+                        </div>
+                    </div>
+                    <div data-netlify-recaptcha="true"></div>
                     <div class="form-section">
                       <button type="submit">Send</button>
                     </div>
@@ -84,6 +90,7 @@ import Layout from '../layouts/Layout.astro';
     padding:20px;
     gap:20px;
 }
+.form-section.hidden { display: none; }
 .field
 {
     width: 100%;
@@ -113,5 +120,11 @@ import Layout from '../layouts/Layout.astro';
 .form-section:not(:last-child)
 {
     border-bottom: 1px solid rgba(155,155,155,0.3);
+}
+
+.form-section button
+{
+    appearance: none;
+    
 }
 </style>
