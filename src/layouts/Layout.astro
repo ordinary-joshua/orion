@@ -1,12 +1,16 @@
 ---
+
+import { SEO } from "astro-seo";
+
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 interface Props {
-	title: string;
+	title: string,
+	description: string
 }
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,8 +20,19 @@ const { title } = Astro.props;
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+
+		<SEO
+		title={title}
+		description={description}
+		openGraph={{
+		  basic: {
+			title: "%s",
+			type: "website",
+			image: "https://user-images.githubusercontent.com/5182256/131216951-8f74f425-f775-463d-a11b-0e01ad9fce8d.png",
+		  }
+		}}
+		/>
+
 	</head>
 	<body data-overlayscrollbars-initialize>
 		<Header />
