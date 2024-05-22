@@ -12,7 +12,9 @@ interface Props {
 
 const { title, description } = Astro.props;
 
-const currentUrl = Astro.url.href
+const pathSegment = Astro.url.pathname;
+const domain = 'https://orionland.co.uk'; // Replace with your actual domain
+const canonicalUrl = `${domain}${pathSegment}`;
 ---
 
 <!doctype html>
@@ -22,10 +24,10 @@ const currentUrl = Astro.url.href
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Canonical URL -->
-		<link rel="canonical" href={currentUrl} />
+		<link rel="canonical" href={canonicalUrl} />
 		
 		<!-- Open Graph URL -->
-		<meta property="og:url" content={currentUrl} />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content="/img/orion-og.jpg" />
