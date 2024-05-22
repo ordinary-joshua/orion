@@ -11,33 +11,35 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+const currentUrl = Astro.url.href
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<SEO
-		title={title}
-		description={description}
-		openGraph={{
-		  basic: {
-			title: "%s",
-			type: "website",
-			image: "https://user-images.githubusercontent.com/5182256/131216951-8f74f425-f775-463d-a11b-0e01ad9fce8d.png",
-		  }
-		}}
-		/>
+		<!-- Canonical URL -->
+		<link rel="canonical" href={currentUrl} />
+		
+		<!-- Open Graph URL -->
+		<meta property="og:url" content={currentUrl} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content="/img/orion-og.jpg" />
+
+		<meta name="description" content={description} />	
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 	</head>
 	<body data-overlayscrollbars-initialize>
 		<Header />
 		<slot />
 		<Footer />
+		
 	</body>
 </html>
 <style is:global>

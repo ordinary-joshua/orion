@@ -2,17 +2,27 @@
 import ProjectHero from '../components/ProjectHero.astro';
 import Layout from '../layouts/Layout.astro';
 
-interface Props {
-	title: string;
+
+interface FrontMatter {
+	title:string;
+	heroImage: { url: string };
+	description: string;
+	thumbnail: { url: string };
 }
 
-const { title } = Astro.props;
-const { frontmatter, content } = Astro.props;
+interface Props {
+	title: string;
+	frontmatter: FrontMatter;
+}
+
+const {  } = Astro.props;
+const { title, frontmatter } = Astro.props;
 const allPosts = await Astro.glob('../pages/work/*.mdx');
 ---
 
-<Layout>
+<Layout title={frontmatter.title} description={frontmatter.description}>
 <main>
+	{ JSON.stringify(frontmatter.description)}
 	{ 
 	frontmatter.heroImage.url &&
 		<ProjectHero image={frontmatter.heroImage.url} title={frontmatter.title} />
