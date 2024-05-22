@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Header from '../components/Header.astro';
+import ImageFeature from '../components/ImageFeature.astro';
+import Hero from '../components/Hero.astro';
+import OurProjects from '../components/OurProjects.astro';
+import OurFounders from '../components/OurFounders.astro';
+import Partners from '../components/Partners.astro';
+---
+
+<Layout title="404 not found" description="404 not found">
+	<main>
+        <div class="inner">
+            <h1>404 page not found</h1>
+            <p>We have recently updated our website. Please return <a href="/">home</a> to find what you're looking for.</p>
+        </div>
+	</main>
+</Layout>
+<style>
+    main
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100svh;
+        width: 100%;
+        text-align: center;
+        .inner
+        {
+            width:100%;
+            max-width: 650px;
+            h1
+            {
+                margin-top:0;
+            }
+        }
+        a
+        {
+            color: #d5bf98;
+        }
+    }
+</style>
